@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cpu
+  - CpuInventoryUi
   layers:
   - Default
   - TransparentFX

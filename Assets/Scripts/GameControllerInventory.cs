@@ -13,31 +13,39 @@ public class GameControllerInventory : MonoBehaviour {
         _playerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
     }
 
+    void Start() {
+        cpuInventoryUi.gameObject.SetActive(false);
+    }
+
     void Update() {
         if (cpuInventoryUi != null) {
-            Item cpuItem = cpuInventoryUi.GetCpuInventory().GetAttachedItem();
-            Item playerItem = _playerInventory.GetAttachedItem();
+            CpuInventory cpuInventory = cpuInventoryUi.GetCpuInventory();
 
-            if (cpuItem != null && playerItem != null) { 
-                ItemGroup[] groupsCpu = cpuItem.GetGroups();
-                ItemGroup[] groupsPlayer = playerItem.GetGroups();
+            if (cpuInventory != null) { 
+                Item cpuItem = cpuInventory.GetAttachedItem();
+                Item playerItem = _playerInventory.GetAttachedItem();
 
-                bool isTheSameGroup = false;
-                foreach (ItemGroup cpuGroup in groupsCpu) {
-                    foreach (ItemGroup playerGroup in groupsPlayer) {
-                        if (cpuGroup == playerGroup) {
-                            isTheSameGroup = true;
-                            break;
+                if (cpuItem != null && playerItem != null) { 
+                    ItemGroup[] groupsCpu = cpuItem.GetGroups();
+                    ItemGroup[] groupsPlayer = playerItem.GetGroups();
+
+                    bool isTheSameGroup = false;
+                    foreach (ItemGroup cpuGroup in groupsCpu) {
+                        foreach (ItemGroup playerGroup in groupsPlayer) {
+                            if (cpuGroup == playerGroup) {
+                                isTheSameGroup = true;
+                                break;
+                            }
                         }
+                        if (isTheSameGroup) break;
                     }
-                    if (isTheSameGroup) break;
-                }
 
-                if (isTheSameGroup) {
-                    //Item auxItem = cpuItem;
+                    if (isTheSameGroup) {
+                        //Item auxItem = cpuItem;
 
-                    cpuInventoryUi.GetCpuInventory().SetItem(cpuItem, playerItem);
-                    _playerInventory.SetItem(playerItem, cpuItem);
+                        cpuInventoryUi.GetCpuInventory().SetItem(cpuItem, playerItem);
+                        _playerInventory.SetItem(playerItem, cpuItem);
+                    }
                 }
             }
         }

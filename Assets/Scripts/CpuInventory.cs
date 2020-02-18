@@ -16,6 +16,12 @@ public class CpuInventory : MonoBehaviour {
 
     private readonly List<Item> _items = new List<Item>();
     private int _positionAttached = -1;
+    private CpuInventoryUi _cpuInventoryUi = null;
+    private bool _isShowing = false;
+
+    void Awake() {
+        _cpuInventoryUi = GameObject.FindGameObjectWithTag("CpuInventoryUi").GetComponent<CpuInventoryUi>();
+    }
 
     void Start() {
         _items.AddRange(startedItems);
@@ -70,20 +76,22 @@ public class CpuInventory : MonoBehaviour {
     }
 
     public void UpdateImages() {
-        foreach (Item item in _items) {
-            Image itemImage = itemsImages[_items.IndexOf(item)];
-            itemImage.sprite = item.GetImage();
-            Color itemImageColor = itemImage.color;
-            itemImageColor.a = 1f;
-            itemImage.color = itemImageColor;
-        }
+        if (_isShowing) {
+            foreach (Item item in _items) {
+                Image itemImage = itemsImages[_items.IndexOf(item)];
+                itemImage.sprite = item.GetImage();
+                Color itemImageColor = itemImage.color;
+                itemImageColor.a = 1f;
+                itemImage.color = itemImageColor;
+            }
 
-        for (int i = _items.Count; i < 5; i++) {
-            Image itemImage = itemsImages[i];
-            itemImage.sprite = emptyItemImage;
-            Color itemImageColor = itemImage.color;
-            itemImageColor.a = 0f;
-            itemImage.color = itemImageColor;
+            for (int i = _items.Count; i < 5; i++) {
+                Image itemImage = itemsImages[i];
+                itemImage.sprite = emptyItemImage;
+                Color itemImageColor = itemImage.color;
+                itemImageColor.a = 0f;
+                itemImage.color = itemImageColor;
+            }
         }
     }
 
@@ -101,6 +109,20 @@ public class CpuInventory : MonoBehaviour {
 
         _positionAttached = -1;
         Detach();
+    }
+
+    public void ShowInventory() {
+        _isShowing = true;
+        _cpuInventoryUi.SetCpu(this);
+
+        UpdateImages();
+    }
+
+    public void HideIventory() {
+        _positionAttached = -1;
+        Detach();
+
+        _isShowing = false;
     }
 
 }
