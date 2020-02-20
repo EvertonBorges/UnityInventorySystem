@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Cpu
-  - CpuInventoryUi
+  - Npc
+  - NpcInventoryUi
   layers:
   - Default
   - TransparentFX

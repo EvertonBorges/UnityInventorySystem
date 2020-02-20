@@ -20,7 +20,7 @@ public class CpuInventory : MonoBehaviour {
     private bool _isShowing = false;
 
     void Awake() {
-        _cpuInventoryUi = GameObject.FindGameObjectWithTag("CpuInventoryUi").GetComponent<CpuInventoryUi>();
+        _cpuInventoryUi = GameObject.FindGameObjectWithTag("NpcInventoryUi").GetComponent<CpuInventoryUi>();
     }
 
     void Start() {
@@ -112,10 +112,12 @@ public class CpuInventory : MonoBehaviour {
     }
 
     public void ShowInventory() {
-        _isShowing = true;
-        _cpuInventoryUi.SetCpu(this);
+        if (!_isShowing) {
+            _isShowing = true;
+            _cpuInventoryUi.SetCpu(this);
 
-        UpdateImages();
+            UpdateImages();
+        }
     }
 
     public void HideIventory() {

@@ -10,7 +10,7 @@ public class PlayerMoviment : MonoBehaviour {
     private CpuInventoryUi _cpuInventoryUi = null;
 
     void Awake() {
-        _cpuInventoryUi = GameObject.FindGameObjectWithTag("CpuInventoryUi").GetComponent<CpuInventoryUi>();
+        _cpuInventoryUi = GameObject.FindGameObjectWithTag("NpcInventoryUi").GetComponent<CpuInventoryUi>();
     }
 
     void Update() {
@@ -21,14 +21,14 @@ public class PlayerMoviment : MonoBehaviour {
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        if (collision.CompareTag("Cpu")) {
+        if (collision.CompareTag("Npc")) {
             CpuInventory cpuInventory = collision.GetComponent<CpuInventory>();
             cpuInventory.ShowInventory();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.CompareTag("Cpu")) {
+        if (collision.CompareTag("Npc")) {
             _cpuInventoryUi.HideActualCpuInventory();
         }
     }
