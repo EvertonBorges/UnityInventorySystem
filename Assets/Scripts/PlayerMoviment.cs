@@ -20,6 +20,13 @@ public class PlayerMoviment : MonoBehaviour {
         transform.position += (Vector3.up * vertical + Vector3.right * horizontal) * speed * Time.deltaTime;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Item")) {
+            ItemUi itemUi = collision.GetComponent<ItemUi>();
+            itemUi.GetItem();
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.CompareTag("Npc")) {
             CpuInventory cpuInventory = collision.GetComponent<CpuInventory>();
