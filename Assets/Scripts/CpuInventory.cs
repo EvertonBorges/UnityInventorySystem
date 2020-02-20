@@ -25,7 +25,6 @@ public class CpuInventory : MonoBehaviour {
 
     void Start() {
         _items.AddRange(startedItems);
-        UpdateImages();
     }
 
     void Update() {

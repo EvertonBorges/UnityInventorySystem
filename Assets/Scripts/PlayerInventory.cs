@@ -11,11 +11,15 @@ public class PlayerInventory : MonoBehaviour {
     [SerializeField]
     private Sprite emptyItemImage = null;
 
+    [SerializeField]
+    private Item[] startedItems = null;
+
     private readonly List<Item> _items = new List<Item>();
     private int _positionAttached = -1;
 
     void Start() {
-        
+        _items.AddRange(startedItems);
+        UpdateImages();
     }
 
     void Update() {
